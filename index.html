@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>React Reconcilation</title>
+  </head>
+  <style>
+    .App {
+      font-family: sans-serif;
+      text-align: center;
+    }
+    .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .main > div {
+      margin-right: 50px;
+      padding: 100px;
+      border: 2px solid crimson;
+    }
+    input {
+      padding: 10px 20px;
+      border: 1px solid brown;
+    }
+    pre {
+      font-size: 20px;
+    }
+  </style>
+  <body class="main">
+    <div id="react"></div>
+    <div id="vanilla"></div>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@16/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+    ></script>
+    <script>
+      const reactElement = document.getElementById("react");
+      const domElement = document.getElementById("vanilla");
+      function renderMain() {
+        function App() {
+          return React.createElement(
+            "div",
+            {
+              className: "App",
+            },
+            React.createElement("h1", null, " 😱 Hello React"),
+            React.createElement("input", {
+              type: "text",
+              placeholder: "Type Something..",
+            }),
+            React.createElement("pre", null, new Date().toLocaleTimeString())
+          );
+        }
+        ReactDOM.render(App(), reactElement);
+
+        domElement.innerHTML = `
+          <div class="App">
+            <h1> 😰 Hello DOM</h1>
+            <input type="text" placeholder="Type Something" />
+            <pre>${new Date().toLocaleTimeString()}</pre>
+          </div>`;
+      }
+      setInterval(renderMain, 1000);
+    </script>
+  </body>
+</html>
